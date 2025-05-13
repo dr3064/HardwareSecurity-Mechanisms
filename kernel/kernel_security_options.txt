@@ -1,0 +1,29 @@
+1. Retpoline (CONFIG_RETPOLINE):
+   - Purpose: Mitigates Spectre-v2 by replacing indirect branches to prevent speculative execution attacks.
+   - Justification: Protects against branch target injection, a critical CPU vulnerability. Toggleable for benchmarking.
+   - Expected Impact: 5-10% compute overhead.
+
+2. Kernel Page Table Isolation (KPTI, CONFIG_PAGE_TABLE_ISOLATION):
+   - Purpose: Mitigates Meltdown by isolating kernel and user-space page tables.
+   - Justification: Essential for Intel CPUs without hardware fixes. Toggleable for comparison.
+   - Expected Impact: 10-20% syscall/context-switch overhead.
+
+3. Kernel Address Space Layout Randomization (KASLR, CONFIG_RANDOMIZE_BASE):
+   - Purpose: Randomizes kernel memory layout to hinder exploits.
+   - Justification: Standard defense against memory-based attacks.
+   - Expected Impact: Negligible (<5%).
+
+4. SLUB Debugging (CONFIG_SLUB_DEBUG, slub_debug=FZ):
+   - Purpose: Detects slab allocator memory corruption (e.g., buffer overflows).
+   - Justification: Protects against kernel memory exploits.
+   - Expected Impact: 15-30% memory allocation overhead.
+
+5. Control-Flow Integrity (CFI, CONFIG_CFI_CLANG):
+   - Purpose: Ensures valid control flow to prevent hijacking attacks.
+   - Justification: Modern defense against ROP/JOP exploits. Requires Clang.
+   - Expected Impact: 5-15% function call overhead.
+
+6. Stack-Protector (CONFIG_STACKPROTECTOR_STRONG):
+   - Purpose: Detects stack-based buffer overflows with canaries.
+   - Justification: Lightweight, widely used defense.
+   - Expected Impact: Negligible (<5%).
